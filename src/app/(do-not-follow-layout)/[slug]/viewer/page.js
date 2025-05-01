@@ -1,3 +1,5 @@
+"use client";
+
 import { useRef, useState, useEffect } from "react";
 import ModelViewer3d from "@/components/pages/viewer/ModelViewer3d";
 import { useParams, useRouter } from "next/navigation";
