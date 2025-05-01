@@ -1,6 +1,6 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import { AwesomeCaptcha } from "react-awesome-captcha";
+import ReCAPTCHA from "react-google-recaptcha";
 import { useForm } from "react-hook-form";
 
 import { Country, State, City } from "country-state-city";
@@ -469,7 +469,7 @@ const InquiryForm = () => {
                     </div>
                     <div className="col-sm-8 col-lg-4">
                       <div className="form-block">
-                        <AwesomeCaptcha
+                        <ReCAPTCHA
                           key={captchaKey}
                           onValidate={handleCaptchaValidation}
                           className="captcha-block"
