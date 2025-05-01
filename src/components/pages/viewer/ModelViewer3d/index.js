@@ -1,5 +1,4 @@
 "use client";
-
 import {
   useRef,
   useEffect,
@@ -13,30 +12,10 @@ import close from "../../../../../public/images/close.svg";
 
 const ModelViewer3d = forwardRef(
   ({ modelPath, activeColor, hotspotData, onModelLoaded }, ref) => {
-    const viewerRef = useRef(null);
-    useEffect(() => {
-      const script = document.createElement("script");
-      document.body.appendChild(script);
-    }, []);
-    useEffect(() => {
-      // Safe DOM usage
-      if (typeof window !== 'undefined') {
-        // Load <model-viewer> script if needed
-        const script = document.createElement('script');
-        script.src = 'https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js';
-        script.type = 'module';
-        document.head.appendChild(script);
-      }
-    }, []);
     // console.log("activecolor", activeColor);
     const modelViewerRef = useRef(null);
     const [activeHotspot, setActiveHotspot] = useState(null);
 
-    useEffect(() => {
-      if (typeof window !== "undefined" && modelViewerRef.current) {
-        import("@google/model-viewer");
-      }
-    }, []);
     // Define all the available colors for all models here
     // const COLORS = {
     //   RED: "#ff0026", // RGBA for red
@@ -110,8 +89,7 @@ const ModelViewer3d = forwardRef(
     return (
       <div className="model-viewer-wrapper">
         <model-viewer
-          // ref={modelViewerRef}
-          ref={ref || viewerRef}
+          ref={modelViewerRef}
           src={modelPath || "/models/200DI 2WD.glb"}
           // src={modelPath || "/models/tractor_Variant.glb"}
           ar

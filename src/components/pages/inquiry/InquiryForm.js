@@ -1,8 +1,6 @@
 "use client";
-import dynamic from 'next/dynamic';
 import React, { useEffect, useState } from "react";
-// import { AwesomeCaptcha, captcha } from "react-awesome-captcha";
-import ReCAPTCHA from "react-google-recaptcha";
+import { AwesomeCaptcha, captcha } from "react-awesome-captcha";
 import { useForm } from "react-hook-form";
 
 import { Country, State, City } from "country-state-city";
@@ -13,10 +11,6 @@ import { GET_TRACTOR_LISTING_PAGE } from "@/graphql/queries/get-tractor-lising-p
 import { useSearchParams } from "next/navigation";
 
 import useNotification from "@/hooks/useNotification";
-
-// const AwesomeCaptcha = dynamic(() => import('react-awesome-captcha'), {
-//   ssr: false,
-// });
 
 const InquiryForm = () => {
   const [activeTab, setActiveTab] = useState("Domestic");
@@ -475,7 +469,7 @@ const InquiryForm = () => {
                     </div>
                     <div className="col-sm-8 col-lg-4">
                       <div className="form-block">
-                        <ReCAPTCHA
+                        <AwesomeCaptcha
                           key={captchaKey}
                           onValidate={handleCaptchaValidation}
                           className="captcha-block"
