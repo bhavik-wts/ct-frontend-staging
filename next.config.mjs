@@ -1,14 +1,19 @@
 /** @type {import('next').NextConfig} */
+import webpack from "webpack";
+
 const nextConfig = {
+  compiler: {
+    removeConsole: process.env.NODE_ENV === "production",
+  },
   reactStrictMode: true,
-  swcMinify: true,
-  experimental: {
-    appDir: true,
-  },
-  images: {
-    domains: ['localhost', 'yourdomain.com', 'res.cloudinary.com'], // Add your allowed image domains
-  },
-  webpack(config, options) {
+  webpack: (config, { buildId, dev, isServer, defaultLoaders, webpack }) => {
+    config.plugins.push(
+      new webpack.ProvidePlugin({
+        $: "jquery",
+        jQuery: "jquery",
+        "window.jQuery": "jquery",
+      })
+    );
     return config;
   },
 };
