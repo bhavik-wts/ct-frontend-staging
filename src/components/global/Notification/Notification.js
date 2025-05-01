@@ -5,17 +5,17 @@ import { useNotifications } from "@/hooks/useNotifications";
 
 // Notification Component
 const Notification = ({ notification, onDismiss }) => {
-  useEffect(() => {
-    // Automatically remove notification after 5 seconds
-    const timer = setTimeout(() => {
-      document.querySelector(".toaster-wrapper").classList.add("hide");
-      setTimeout(() => {
-        onDismiss(notification.id);
-      }, 200); // Match with the slide-out animation duration
-    }, 5000);
+  // useEffect(() => {
+  //   // Automatically remove notification after 5 seconds
+  //   const timer = setTimeout(() => {
+  //     document.querySelector(".toaster-wrapper").classList.add("hide");
+  //     setTimeout(() => {
+  //       onDismiss(notification.id);
+  //     }, 200); // Match with the slide-out animation duration
+  //   }, 5000);
 
-    return () => clearTimeout(timer);
-  }, [notification]);
+  //   return () => clearTimeout(timer);
+  // }, [notification]);
 
   const getNotificationStyle = (type) => {
     switch (type) {

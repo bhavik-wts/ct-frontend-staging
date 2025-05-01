@@ -2,11 +2,11 @@ import React from "react";
 import parse from "html-react-parser"; // Import html-react-parser
 
 // Function to extract text from parsed HTML
-const extractTextFromHTML = (html) => {
-  const tempDiv = document.createElement("div");
-  tempDiv.innerHTML = html; // Set the HTML content
-  return tempDiv.innerText; // Return the text content
-};
+// const extractTextFromHTML = (html) => {
+//   const tempDiv = document.createElement("div");
+//   tempDiv.innerHTML = html; // Set the HTML content
+//   return tempDiv.innerText; // Return the text content
+// };
 
 const CommonCard = ({ isSlider, isContribution, data }) => {
   let allData = data.attributes;
@@ -42,7 +42,8 @@ const CommonCard = ({ isSlider, isContribution, data }) => {
                 WebkitBoxOrient: "vertical",
               }}
             >
-              {extractTextFromHTML(content)} {/* Render only text content */}
+              {/* {extractTextFromHTML(content)}  */}
+              {/* Render only text content */}
             </p>
           )}
 

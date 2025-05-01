@@ -30,18 +30,18 @@ const ProductFeatures = ({ data }) => {
 
 
   // Effect to measure block width
-  useEffect(() => {
-    const updateBlockWidth = () => {
-      const block = document.querySelector('.scroll-block');
-      if (block) {
-        setBlockWidth(block.offsetWidth);
-      }
-    };
+  // useEffect(() => {
+  //   const updateBlockWidth = () => {
+  //     const block = document.querySelector('.scroll-block');
+  //     if (block) {
+  //       setBlockWidth(block.offsetWidth);
+  //     }
+  //   };
 
-    updateBlockWidth();
-    window.addEventListener('resize', updateBlockWidth);
-    return () => window.removeEventListener('resize', updateBlockWidth);
-  }, []);
+  //   updateBlockWidth();
+  //   window.addEventListener('resize', updateBlockWidth);
+  //   return () => window.removeEventListener('resize', updateBlockWidth);
+  // }, []);
 
   let topTitle,
     mainHeading,

@@ -81,58 +81,58 @@ const InquiryForm = () => {
     setActiveTab(tab);
   };
 
-  const handleInquirySubmit = async (data) => {
-    const selectedProductOptions = document.getElementsByClassName("selected");
-    let selectedProductsString = "";
+  // const handleInquirySubmit = async (data) => {
+  //   const selectedProductOptions = document.getElementsByClassName("selected");
+  //   let selectedProductsString = "";
 
-    for (let option of selectedProductOptions) {
-      selectedProductsString += option.innerHTML + ", ";
-    }
+  //   for (let option of selectedProductOptions) {
+  //     selectedProductsString += option.innerHTML + ", ";
+  //   }
 
-    selectedProductsString = selectedProductsString.slice(0, -2);
+  //   selectedProductsString = selectedProductsString.slice(0, -2);
 
-    data.type = activeTab;
-    data.selectProducts = selectedProductsString;
+  //   data.type = activeTab;
+  //   data.selectProducts = selectedProductsString;
 
-    if (!userInteractedWithCaptcha) {
-      triggerNotification("Please enter the Captcha!", "error");
-      return;
-    }
+  //   if (!userInteractedWithCaptcha) {
+  //     triggerNotification("Please enter the Captcha!", "error");
+  //     return;
+  //   }
 
-    if (!isCaptchaValid) {
-      triggerNotification("Captcha is not valid!", "error");
-      return;
-    }
+  //   if (!isCaptchaValid) {
+  //     triggerNotification("Captcha is not valid!", "error");
+  //     return;
+  //   }
 
-    try {
-      const response = await fetch(`/api/proxy/api/inquiries`, {
-        method: "POST",
-        headers: {
-          "content-type": "application/json",
-        },
-        body: JSON.stringify({ data }),
-      });
+  //   try {
+  //     const response = await fetch(`/api/proxy/api/inquiries`, {
+  //       method: "POST",
+  //       headers: {
+  //         "content-type": "application/json",
+  //       },
+  //       body: JSON.stringify({ data }),
+  //     });
 
-      if (!response.ok) {
-        throw new Error(`Network Response was not ok: ${response.status}`);
-      }
+  //     if (!response.ok) {
+  //       throw new Error(`Network Response was not ok: ${response.status}`);
+  //     }
 
-      const productOptions = document.getElementsByTagName("span");
-      for (let option of productOptions) {
-        option.classList.remove("selected");
-      }
+  //     const productOptions = document.getElementsByTagName("span");
+  //     for (let option of productOptions) {
+  //       option.classList.remove("selected");
+  //     }
 
-      triggerNotification("Success!", "success");
-      setSubmitStatus("success");
-      reset();
-      setCaptchaKey((prevKey) => prevKey + 1);
-      setIsCaptchaValid(false); // Reset captcha validation status
-    } catch (error) {
-      console.error("Submission Error:", error);
-      triggerNotification("Error!", "error");
-      setSubmitStatus("error");
-    }
-  };
+  //     triggerNotification("Success!", "success");
+  //     setSubmitStatus("success");
+  //     reset();
+  //     setCaptchaKey((prevKey) => prevKey + 1);
+  //     setIsCaptchaValid(false); // Reset captcha validation status
+  //   } catch (error) {
+  //     console.error("Submission Error:", error);
+  //     triggerNotification("Error!", "error");
+  //     setSubmitStatus("error");
+  //   }
+  // };
 
   return (
     <>
@@ -182,7 +182,8 @@ const InquiryForm = () => {
               </ul>
               <hr />
               <div className="tab-content" id="myTabContent">
-                <form onSubmit={handleSubmit(handleInquirySubmit)}>
+                {/* <form onSubmit={handleSubmit(handleInquirySubmit)}> */}
+                <form>
                   <div className="row g-4">
                     <div className="col-md-6 col-lg-4">
                       <div className="form-block">

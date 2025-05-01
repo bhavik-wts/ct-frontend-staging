@@ -1,23 +1,23 @@
 import React from "react";
 
 const SearchBar = ({ count, allData, setFilteredResults }) => {
-  const handleSearch = () => {
-    const searchQuery = document
-      .getElementById("search-bar")
-      .value.toLowerCase();
-    if (searchQuery == "") {
-      setFilteredResults(allData);
-    } else {
-      let filteredResults = [];
+  // const handleSearch = () => {
+  //   const searchQuery = document
+  //     .getElementById("search-bar")
+  //     .value.toLowerCase();
+  //   if (searchQuery == "") {
+  //     setFilteredResults(allData);
+  //   } else {
+  //     let filteredResults = [];
 
-      for (let data of allData) {
-        const title = data.attributes.title.toLowerCase();
-        if (title.includes(searchQuery)) filteredResults.push(data);
-      }
+  //     for (let data of allData) {
+  //       const title = data.attributes.title.toLowerCase();
+  //       if (title.includes(searchQuery)) filteredResults.push(data);
+  //     }
 
-      setFilteredResults(filteredResults);
-    }
-  };
+  //     setFilteredResults(filteredResults);
+  //   }
+  // };
   return (
     <>
       <div className="row">
@@ -31,7 +31,7 @@ const SearchBar = ({ count, allData, setFilteredResults }) => {
                 id="search-bar"
                 className="form-control"
                 placeholder="Search"
-                onChange={handleSearch}
+                // onChange={handleSearch}
               />
               <img
                 src="images/search.svg"

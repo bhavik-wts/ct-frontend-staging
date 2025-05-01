@@ -33,46 +33,46 @@ const LanguageSelector = () => {
         setIsGoogleTranslateLoaded(true);
 
         // Manipulate the Google Translate widget after loading
-        setTimeout(() => {
-          const googleTranslateElement = document.querySelector(
-            ".goog-te-gadget-simple"
-          );
+        // setTimeout(() => {
+        //   const googleTranslateElement = document.querySelector(
+        //     ".goog-te-gadget-simple"
+        //   );
 
-          if (googleTranslateElement) {
-            // Add a custom 'form-select' class to the Google Translate widget
-            googleTranslateElement.classList.add("form-select");
+        //   if (googleTranslateElement) {
+        //     // Add a custom 'form-select' class to the Google Translate widget
+        //     googleTranslateElement.classList.add("form-select");
 
-            // Remove all <img> tags inside the Google Translate widget
-            const images = googleTranslateElement.querySelectorAll("img");
-            images.forEach((img) => img.remove());
-          }
+        //     // Remove all <img> tags inside the Google Translate widget
+        //     const images = googleTranslateElement.querySelectorAll("img");
+        //     images.forEach((img) => img.remove());
+        //   }
 
-          // Hide element with id ':2.container' using MutationObserver
-          const observer = new MutationObserver(() => {
-            const containerElement = document.getElementById(":2.container");
-            if (containerElement) {
-              containerElement.style.visibility = "hidden"; // Set visibility to hidden
+        //   // Hide element with id ':2.container' using MutationObserver
+        //   const observer = new MutationObserver(() => {
+        //     const containerElement = document.getElementById(":2.container");
+        //     if (containerElement) {
+        //       containerElement.style.visibility = "hidden"; // Set visibility to hidden
 
-              // Remove inline styles from body
-              document.body.removeAttribute("style");
+        //       // Remove inline styles from body
+        //       document.body.removeAttribute("style");
 
-              observer.disconnect(); // Stop observing once the element is found and hidden
-            }
-          });
+        //       observer.disconnect(); // Stop observing once the element is found and hidden
+        //     }
+        //   });
 
-          // Start observing the body for child additions
-          observer.observe(document.body, { childList: true, subtree: true });
-        }, 500); // Delay to ensure the widget is loaded before manipulation
+        //   // Start observing the body for child additions
+        //   observer.observe(document.body, { childList: true, subtree: true });
+        // }, 500); // Delay to ensure the widget is loaded before manipulation
       };
 
       // Add the script only once to avoid multiple script injections
-      if (
-        !document.querySelector(
-          'script[src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"]'
-        )
-      ) {
-        // addGoogleTranslateScript();
-      }
+      // if (
+      //   !document.querySelector(
+      //     'script[src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"]'
+      //   )
+      // ) {
+      //   addGoogleTranslateScript();
+      // }
     }
   }, []); // Empty dependency array ensures this only runs once on mount
 
