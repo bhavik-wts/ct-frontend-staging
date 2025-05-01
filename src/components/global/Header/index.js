@@ -15,7 +15,7 @@ const Index = ({ data }) => {
 
   const handleMenuClick = () => {
     setIsMenuOpen(!isMenuOpen);
-    document.body.style.overflow = isMenuOpen ? "" : "hidden"; // Prevent background scrolling
+    // document.body.style.overflow = isMenuOpen ? "" : "hidden"; // Prevent background scrolling
     setIsHeaderScrolled(!isHeaderScrolled);
   };
 

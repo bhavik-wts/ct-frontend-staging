@@ -9,13 +9,13 @@ const LanguageSelector = () => {
     // Ensure that this runs only on the client-side (in the browser)
     if (typeof window !== "undefined") {
       // Function to dynamically load the Google Translate script
-      const addGoogleTranslateScript = () => {
-        const googleTranslateScript = document.createElement("script");
-        googleTranslateScript.src =
-          "//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit";
-        googleTranslateScript.async = true;
-        document.head.appendChild(googleTranslateScript);
-      };
+      // const addGoogleTranslateScript = () => {
+      //   const googleTranslateScript = document.createElement("script");
+      //   googleTranslateScript.src =
+      //     "//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit";
+      //   googleTranslateScript.async = true;
+      //   document.head.appendChild(googleTranslateScript);
+      // };
 
       // Callback for Google Translate initialization
       window.googleTranslateElementInit = function () {
@@ -71,7 +71,7 @@ const LanguageSelector = () => {
           'script[src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"]'
         )
       ) {
-        addGoogleTranslateScript();
+        // addGoogleTranslateScript();
       }
     }
   }, []); // Empty dependency array ensures this only runs once on mount
