@@ -12,24 +12,24 @@ const Page = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  useEffect(() => {
-    // Ensure the logic runs only after the page has been rendered
-    const hash = window.location.hash;
+  // useEffect(() => {
+  //   // Ensure the logic runs only after the page has been rendered
+  //   const hash = window.location.hash;
 
-    if (hash) {
-      const hashId = hash.replace("#", "");
-      console.log("hashId", hashId);
+  //   if (hash) {
+  //     const hashId = hash.replace("#", "");
+  //     console.log("hashId", hashId);
 
-      // Delay slightly to ensure the DOM is fully rendered
-      setTimeout(() => {
-        const element = document.getElementById(hashId);
-        console.log("element", element);
-        if (element) {
-          element.scrollIntoView({ behavior: "smooth" });
-        }
-      }, 500);
-    }
-  }, []);
+  //     // Delay slightly to ensure the DOM is fully rendered
+  //     setTimeout(() => {
+  //       const element = document.getElementById(hashId);
+  //       console.log("element", element);
+  //       if (element) {
+  //         element.scrollIntoView({ behavior: "smooth" });
+  //       }
+  //     }, 500);
+  //   }
+  // }, []);
 
   useEffect(() => {
     const fetchDataAsync = async () => {

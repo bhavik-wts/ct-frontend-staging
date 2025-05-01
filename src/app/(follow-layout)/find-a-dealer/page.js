@@ -135,7 +135,7 @@ const Page = () => {
     setDealers(tempDealers);
   };
 
-  const onSearchChange = () => {
+  /*const onSearchChange = () => {
     const searchValue = document.getElementById("search-bar").value;
 
     let tempDealers = dealers;
@@ -159,7 +159,7 @@ const Page = () => {
       setDealers(allDealers);
       handleFilterChange();
     }
-  };
+  };*/
 
   return (
     <>
@@ -175,7 +175,7 @@ const Page = () => {
             districts={districts}
             states={states}
             categories={categories}
-            onSearchChange={onSearchChange}
+            // onSearchChange={onSearchChange}
             onDistrictChange={onDistrictChange}
             onStateChange={onStateChange}
             onCategoryChange={onCategoryChange}

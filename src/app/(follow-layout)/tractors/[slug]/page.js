@@ -25,27 +25,27 @@ const Page = ({ params }) => {
   const [error, setError] = useState(null); // Error state
   const [data, setData] = useState(null); // Data state
 
-  useEffect(() => {
-    // const hash = typeof window !== "undefined" ? window.location.hash : null;
-    document.title = `Tractor | ${currentPathName
-      .split("/")[2]
-      .split("-")
-      .reduce((acc, part, index, arr) => {
-        // If the part is 'wd' and the previous part is a number, combine them as "4WD", "2WD", etc.
-        if (
-          part.toLowerCase() === "wd" &&
-          index > 0 &&
-          !isNaN(arr[index - 1])
-        ) {
-          acc[acc.length - 1] += "WD"; // Combine number with 'WD'
-        } else {
-          // Capitalize the first letter and convert the rest to uppercase
-          acc.push(part.toUpperCase());
-        }
-        return acc;
-      }, [])
-      .join(" ")}`;
-  }, [currentPathName]);
+  // useEffect(() => {
+  //   // const hash = typeof window !== "undefined" ? window.location.hash : null;
+  //   document.title = `Tractor | ${currentPathName
+  //     .split("/")[2]
+  //     .split("-")
+  //     .reduce((acc, part, index, arr) => {
+  //       // If the part is 'wd' and the previous part is a number, combine them as "4WD", "2WD", etc.
+  //       if (
+  //         part.toLowerCase() === "wd" &&
+  //         index > 0 &&
+  //         !isNaN(arr[index - 1])
+  //       ) {
+  //         acc[acc.length - 1] += "WD"; // Combine number with 'WD'
+  //       } else {
+  //         // Capitalize the first letter and convert the rest to uppercase
+  //         acc.push(part.toUpperCase());
+  //       }
+  //       return acc;
+  //     }, [])
+  //     .join(" ")}`;
+  // }, [currentPathName]);
 
   useEffect(() => {
     setLoading(true); // Ensure loading starts before fetching
