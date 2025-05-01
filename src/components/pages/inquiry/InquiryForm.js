@@ -1,17 +1,18 @@
 "use client";
 import React, { useEffect, useState } from "react";
+// import { AwesomeCaptcha, captcha } from "react-awesome-captcha";
 import ReCAPTCHA from "react-google-recaptcha";
 import { useForm } from "react-hook-form";
-
+ 
 import { Country, State, City } from "country-state-city";
-
+ 
 import "./inquiry.css";
 import { fetchData } from "@/lib/graphql-operations";
 import { GET_TRACTOR_LISTING_PAGE } from "@/graphql/queries/get-tractor-lising-page";
 import { useSearchParams } from "next/navigation";
-
+ 
 import useNotification from "@/hooks/useNotification";
-
+ 
 const InquiryForm = () => {
   const [activeTab, setActiveTab] = useState("Domestic");
   const [submitStatus, setSubmitStatus] = useState(null);
@@ -19,13 +20,13 @@ const InquiryForm = () => {
   const [captchaKey, setCaptchaKey] = useState(0);
   const [userInteractedWithCaptcha, setUserInteractedWithCaptcha] =
     useState(false);
-
+ 
   const [countries, setCountries] = useState([]);
   const [states, setStates] = useState([]);
   const [districts, setDistricts] = useState([]);
-
+ 
   const [tractors, setTractors] = useState([]);
-
+ 
   const { triggerNotification } = useNotification();
   const {
     register,
@@ -33,30 +34,30 @@ const InquiryForm = () => {
     formState: { errors },
     reset,
   } = useForm();
-
+ 
   const searchParams = useSearchParams();
   const tab = searchParams.get("tab");
   console.log(tab);
-
+ 
   useEffect(() => {
     if (tab) {
       setActiveTab(tab); // Update active tab based on query parameter
     }
   }, [tab]);
-
+ 
   useEffect(() => {
     setCountries(Country.getAllCountries());
     setStates(State.getStatesOfCountry("IN"));
   }, []);
-
+ 
   useEffect(() => {
     fetchData(GET_TRACTOR_LISTING_PAGE).then((data) => {
       const tractorCategories = data.tractorCategorywiseData.data;
       let allTractors = [];
-
+ 
       for (let category of tractorCategories) {
         let tractors = category.attributes.tractors.data;
-
+ 
         for (let tractor of tractors) {
           allTractors.push(tractor.attributes.name);
         }
@@ -64,76 +65,76 @@ const InquiryForm = () => {
       setTractors(allTractors);
     });
   }, []);
-
+ 
   const handleProductSelection = (e) => {
     e.target.classList.toggle("selected");
   };
-
+ 
   const handleCaptchaValidation = (isValid) => {
     console.log("captcha", isValid);
     setIsCaptchaValid(isValid);
     setUserInteractedWithCaptcha(true);
   };
-
+ 
   const handleTabChange = (tab) => {
     reset();
     setSubmitStatus("");
     setActiveTab(tab);
   };
-
-  // const handleInquirySubmit = async (data) => {
-  //   const selectedProductOptions = document.getElementsByClassName("selected");
-  //   let selectedProductsString = "";
-
-  //   for (let option of selectedProductOptions) {
-  //     selectedProductsString += option.innerHTML + ", ";
-  //   }
-
-  //   selectedProductsString = selectedProductsString.slice(0, -2);
-
-  //   data.type = activeTab;
-  //   data.selectProducts = selectedProductsString;
-
-  //   if (!userInteractedWithCaptcha) {
-  //     triggerNotification("Please enter the Captcha!", "error");
-  //     return;
-  //   }
-
-  //   if (!isCaptchaValid) {
-  //     triggerNotification("Captcha is not valid!", "error");
-  //     return;
-  //   }
-
-  //   try {
-  //     const response = await fetch(`/api/proxy/api/inquiries`, {
-  //       method: "POST",
-  //       headers: {
-  //         "content-type": "application/json",
-  //       },
-  //       body: JSON.stringify({ data }),
-  //     });
-
-  //     if (!response.ok) {
-  //       throw new Error(`Network Response was not ok: ${response.status}`);
-  //     }
-
-  //     const productOptions = document.getElementsByTagName("span");
-  //     for (let option of productOptions) {
-  //       option.classList.remove("selected");
-  //     }
-
-  //     triggerNotification("Success!", "success");
-  //     setSubmitStatus("success");
-  //     reset();
-  //     setCaptchaKey((prevKey) => prevKey + 1);
-  //     setIsCaptchaValid(false); // Reset captcha validation status
-  //   } catch (error) {
-  //     console.error("Submission Error:", error);
-  //     triggerNotification("Error!", "error");
-  //     setSubmitStatus("error");
-  //   }
-  // };
-
+ 
+  const handleInquirySubmit = async (data) => {
+    const selectedProductOptions = document.getElementsByClassName("selected");
+    let selectedProductsString = "";
+ 
+    for (let option of selectedProductOptions) {
+      selectedProductsString += option.innerHTML + ", ";
+    }
+ 
+    selectedProductsString = selectedProductsString.slice(0, -2);
+ 
+    data.type = activeTab;
+    data.selectProducts = selectedProductsString;
+ 
+    if (!userInteractedWithCaptcha) {
+      triggerNotification("Please enter the Captcha!", "error");
+      return;
+    }
+ 
+    if (!isCaptchaValid) {
+      triggerNotification("Captcha is not valid!", "error");
+      return;
+    }
+ 
+    try {
+      const response = await fetch(`/api/proxy/api/inquiries`, {
+        method: "POST",
+        headers: {
+          "content-type": "application/json",
+        },
+        body: JSON.stringify({ data }),
+      });
+ 
+      if (!response.ok) {
+        throw new Error(`Network Response was not ok: ${response.status}`);
+      }
+ 
+      const productOptions = document.getElementsByTagName("span");
+      for (let option of productOptions) {
+        option.classList.remove("selected");
+      }
+ 
+      triggerNotification("Success!", "success");
+      setSubmitStatus("success");
+      reset();
+      setCaptchaKey((prevKey) => prevKey + 1);
+      setIsCaptchaValid(false); // Reset captcha validation status
+    } catch (error) {
+      console.error("Submission Error:", error);
+      triggerNotification("Error!", "error");
+      setSubmitStatus("error");
+    }
+  };
+ 
   return (
     <>
       <section className="inquiry-form py-80">
@@ -182,8 +183,7 @@ const InquiryForm = () => {
               </ul>
               <hr />
               <div className="tab-content" id="myTabContent">
-                {/* <form onSubmit={handleSubmit(handleInquirySubmit)}> */}
-                <form>
+                <form onSubmit={handleSubmit(handleInquirySubmit)}>
                   <div className="row g-4">
                     <div className="col-md-6 col-lg-4">
                       <div className="form-block">
@@ -493,5 +493,5 @@ const InquiryForm = () => {
     </>
   );
 };
-
+ 
 export default InquiryForm;

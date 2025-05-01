@@ -9,13 +9,13 @@ import {
 } from "react";
 import ibutton from "../../../../../public/images/ibutton.svg";
 import close from "../../../../../public/images/close.svg";
-
+ 
 const ModelViewer3d = forwardRef(
   ({ modelPath, activeColor, hotspotData, onModelLoaded }, ref) => {
     // console.log("activecolor", activeColor);
     const modelViewerRef = useRef(null);
     const [activeHotspot, setActiveHotspot] = useState(null);
-
+ 
     // Define all the available colors for all models here
     // const COLORS = {
     //   RED: "#ff0026", // RGBA for red
@@ -23,30 +23,30 @@ const ModelViewer3d = forwardRef(
     //   BLUE: "#0875db", // RGBA for blue
     //   BLACK: "#000", // RGBA for black
     // };
-
+ 
     const hotspotClickHandler = (hotspotDetail) => {
       setActiveHotspot(hotspotDetail); // Set active hotspot for modal
       const target = `${hotspotDetail.dataPositionX} ${hotspotDetail.dataPositionY} ${hotspotDetail.dataPositionZ}`;
       const cameraOrbit = `${hotspotDetail.camaraOrbitPhi} ${hotspotDetail.camaraOrbitTheta} ${hotspotDetail.camaraOrbitRadius}`;
       const fov = hotspotDetail.fieldOfView;
-
+ 
       modelViewerRef.current.cameraTarget = target;
       modelViewerRef.current.cameraOrbit = cameraOrbit;
       modelViewerRef.current.fieldOfView = fov;
     };
-
+ 
     // Function to change material color
     const changeMaterialColor = (colorName) => {
       const color = colorName;
-
+ 
       const modelViewerElement = modelViewerRef.current;
-
+ 
       if (modelViewerElement) {
         const handleLoad = () => {
           if (onModelLoaded) {
             onModelLoaded(); // Call the callback passed to ModelViewer3d
           }
-
+ 
           const model = modelViewerElement.model;
           if (model) {
             const material = model.materials.find(
@@ -57,7 +57,7 @@ const ModelViewer3d = forwardRef(
             }
           }
         };
-
+ 
         // If the model is already loaded, handle immediately
         if (modelViewerElement.model) {
           handleLoad();
@@ -69,14 +69,14 @@ const ModelViewer3d = forwardRef(
         }
       }
     };
-
+ 
     // Use effect to set initial color on mount
     useEffect(() => {
       if (activeColor) {
         changeMaterialColor(activeColor.code || "#000");
       }
     }, [activeColor, onModelLoaded]);
-
+ 
     // Use forwardRef to expose the enterAR method to the parent component
     useImperativeHandle(ref, () => ({
       enterAR: () => {
@@ -85,7 +85,7 @@ const ModelViewer3d = forwardRef(
         }
       },
     }));
-
+ 
     return (
       <div className="model-viewer-wrapper">
         <model-viewer
@@ -118,7 +118,7 @@ const ModelViewer3d = forwardRef(
                         threshold="0.05"
                     ></bloom-effect>
                 </effect-composer> */}
-
+ 
           {hotspotData?.map((hotspot, index) => (
             <button
               key={index}
@@ -149,9 +149,9 @@ const ModelViewer3d = forwardRef(
                   <img src={close.src}></img>
                 </button>
               </div>
-
+ 
               <hr className="modal-divider" />
-
+ 
               <div className="modal-body">
                 <p>{activeHotspot.hotspotContent}</p>
               </div>
@@ -163,7 +163,7 @@ const ModelViewer3d = forwardRef(
     );
   }
 );
-
+ 
 ModelViewer3d.displayName = "ModelViewer3d";
-
+ 
 export default ModelViewer3d;
