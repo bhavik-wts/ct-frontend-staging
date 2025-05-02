@@ -1,29 +1,30 @@
 "use client";
- 
+export const dynamic = "force-dynamic";
 import { useRef, useState, useEffect } from "react";
 import ModelViewer3d from "@/components/pages/viewer/ModelViewer3d";
 import { useParams, useRouter } from "next/navigation";
 import Loading from "./loading";
+
 import { getStrapiURL } from "@/lib/utils";
 import { GET_TRACTOR_BY_SLUG_VIEWER } from "@/graphql/queries/get-tractor-by-slug-viewer";
 import { fetchData as graphqlFetchData } from "@/lib/graphql-operations";
 import ibutton from "../../../../../public/images/ibutton.svg";
- 
+
 const TractorViewer = () => {
   const { slug } = useParams();
   const [tractorData, setTractorData] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [modelLoading, setModelLoading] = useState(true);
   const [showTooltip, setShowTooltip] = useState(false);
- 
- 
+
+
   const [error, setError] = useState(null);
   const [showArButton, setShowArButton] = useState(false);
   const [activeColor, setActiveColor] = useState(null); // Track active color
   const modelViewerRef = useRef(null);
   const router = useRouter();
   const baseUrl = getStrapiURL();
- 
+
   // Fetch tractor data using GraphQL
   const fetchTractorData = async () => {
     try {
@@ -45,12 +46,12 @@ const TractorViewer = () => {
       setIsLoading(false);
     }
   };
- 
+
   useEffect(() => {
     if (!tractorData) {
       fetchTractorData();
     }
- 
+
     // Check for mobile and AR device support only on the client-side
     if (typeof window !== "undefined") {
       const isMobile = /android|webos|blackberry|iemobile|opera mini/i.test(
@@ -61,14 +62,14 @@ const TractorViewer = () => {
       if (isMobile && !isIPhone) setShowArButton(true);
     }
   }, [tractorData]); // Depend on tractorData to only run when data is fetched or updated
- 
+
   if (isLoading) return <Loading />;
   if (error) return <div>Error: {error}</div>;
- 
+
   const { GLBfile, colors, name, tractor_category, HotspotDetail } =
     tractorData.attributes || {};
   const modelPath = baseUrl + GLBfile?.data?.attributes?.url;
- 
+
   return (
     <section className="web-3d">
       
@@ -81,7 +82,7 @@ const TractorViewer = () => {
       </button>
           <div className="ibutton-s mob-ibutton" onClick={() => setShowTooltip(!showTooltip)} onMouseEnter={() => setShowTooltip(true)} onMouseLeave={() => setShowTooltip(false)}>
             <img src={ibutton.src} alt="Info" style={{ width: "24px", height: "24px", cursor: "pointer" }} />
- 
+
             {showTooltip && (
               <div className="custom-tooltip">
                 <div className="tooltip-arrow" />
@@ -138,7 +139,7 @@ const TractorViewer = () => {
         <div className="d-none d-md-inline-flex d-flex flex-row justify-content-center align-items-center gap-3">
           <div className="position-relative" onClick={() => setShowTooltip(!showTooltip)} onMouseEnter={() => setShowTooltip(true)} onMouseLeave={() => setShowTooltip(false)}>
             <img src={ibutton.src} alt="Info" style={{ width: "24px", height: "24px", cursor: "pointer" }} />
- 
+
             {showTooltip && (
               <div className="custom-tooltip">
                 <div className="tooltip-arrow" />
@@ -175,5 +176,5 @@ const TractorViewer = () => {
     </section>
   );
 };
- 
+
 export default TractorViewer;

@@ -1,19 +1,24 @@
-"use client"
-import Lottie from "lottie-react";
-import React from "react";
-import loader from "../../../../public/images/LOADER.json"
+"use client";
+
+import dynamic from "next/dynamic";
+import React, { useEffect, useState } from "react";
+
+const Lottie = dynamic(() => import("lottie-react"), { ssr: false });
 
 const Loader = () => {
+  const [animationData, setAnimationData] = useState(null);
+
+  useEffect(() => {
+    import("../../../../public/images/LOADER.json").then((mod) => {
+      setAnimationData(mod.default);
+    });
+  }, []);
+
+  if (!animationData) return null;
+
   return (
     <div className="loader-center">
-      {/* <img src="/images/tracktor_loader.png" alt="tractor-aa" /> */}
-      <Lottie animationData={loader} loop={true} style={{ width: 200 }} />
-
-      {/* <div className="loading">
-        <span className="loading__dot"></span>
-        <span className="loading__dot"></span>
-        <span className="loading__dot"></span>
-      </div> */}
+      <Lottie animationData={animationData} loop={true} style={{ width: 200 }} />
     </div>
   );
 };
